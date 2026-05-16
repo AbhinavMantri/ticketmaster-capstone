@@ -21,33 +21,28 @@ flowchart TB
     payment["payment-service<br/>Provider order, webhook, reconcile"]
 
     kafka[("Kafka<br/>inventory events")]
-    userdb[("PostgreSQL<br/>user data")]
-    eventdb[("PostgreSQL<br/>event catalog")]
-    seatsdb[("PostgreSQL<br/>seat inventory")]
-    bookingdb[("PostgreSQL<br/>bookings/tickets")]
-    paymentdb[("PostgreSQL<br/>payments/webhooks")]
+    postgres[("PostgreSQL<br/>service-owned persistence")]
     provider["Payment Provider<br/>Razorpay-compatible"]
 
     client --> entry
 
     entry --> user
-    user --> userdb
-
     entry --> event
-    event --> eventdb
-    event -- "inventory initialization" --> kafka
-
-    kafka --> seats
     entry --> seats
-    seats --> seatsdb
-
     entry --> booking
-    booking --> bookingdb
     booking -. "lock / confirm / release integration" .-> seats
-
     entry --> payment
-    payment --> paymentdb
     booking -. "checkout / payment integration" .-> payment
+
+    user --> postgres
+    event --> postgres
+    seats --> postgres
+    booking --> postgres
+    payment --> postgres
+
+    event -- "inventory initialization" --> kafka
+    kafka --> seats
+
     payment -- "provider order / verification" --> provider
     provider -- "webhook" --> payment
     payment -. "payment outcome integration" .-> booking
@@ -72,7 +67,7 @@ flowchart TB
     class payment paymentNode;
     class kafka streamNode;
     class provider externalNode;
-    class userdb,eventdb,seatsdb,bookingdb,paymentdb dataNode;
+    class postgres dataNode;
 ```
 
 ## Service Map
