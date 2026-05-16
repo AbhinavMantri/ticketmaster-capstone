@@ -9,8 +9,10 @@ It is intentionally split into independently deployable services so the architec
 ## Architecture Overview
 
 ```mermaid
+%%{init: {"theme":"base","themeVariables":{"background":"#1f2937","primaryTextColor":"#f8fafc","lineColor":"#cbd5e1","fontFamily":"Inter, ui-sans-serif, system-ui"}}}%%
 flowchart LR
     client["Client / API Consumer"]
+    entry["Service API Layer<br/>public + internal endpoints"]
 
     user["user-service<br/>Identity, JWT, roles"]
     event["event-management-service<br/>Venues, events, pricing"]
@@ -26,11 +28,12 @@ flowchart LR
     paymentdb[("PostgreSQL<br/>payments/webhooks")]
     provider["Payment Provider<br/>Razorpay-compatible"]
 
-    client --> user
-    client --> event
-    client --> seats
-    client --> booking
-    client --> payment
+    client --> entry
+    entry --> user
+    entry --> event
+    entry --> seats
+    entry --> booking
+    entry --> payment
 
     event -- "inventory initialization" --> kafka
     kafka --> seats
@@ -47,23 +50,27 @@ flowchart LR
     booking --> bookingdb
     payment --> paymentdb
 
-    classDef clientNode fill:#fff7ed,stroke:#f97316,stroke-width:2px,color:#7c2d12;
-    classDef identityNode fill:#eff6ff,stroke:#2563eb,stroke-width:2px,color:#1e3a8a;
-    classDef catalogNode fill:#ecfdf5,stroke:#059669,stroke-width:2px,color:#064e3b;
-    classDef inventoryNode fill:#fefce8,stroke:#ca8a04,stroke-width:2px,color:#713f12;
-    classDef fulfillmentNode fill:#f5f3ff,stroke:#7c3aed,stroke-width:2px,color:#4c1d95;
-    classDef paymentNode fill:#fdf2f8,stroke:#db2777,stroke-width:2px,color:#831843;
-    classDef streamNode fill:#eef2ff,stroke:#4f46e5,stroke-width:2px,color:#312e81;
-    classDef externalNode fill:#f0fdfa,stroke:#0d9488,stroke-width:2px,color:#134e4a;
+    classDef clientNode fill:#f97316,stroke:#fed7aa,stroke-width:2px,color:#fff7ed;
+    classDef entryNode fill:#ec4899,stroke:#fbcfe8,stroke-width:2px,color:#fff1f2;
+    classDef identityNode fill:#2563eb,stroke:#bfdbfe,stroke-width:2px,color:#eff6ff;
+    classDef catalogNode fill:#059669,stroke:#a7f3d0,stroke-width:2px,color:#ecfdf5;
+    classDef inventoryNode fill:#ca8a04,stroke:#fde68a,stroke-width:2px,color:#fefce8;
+    classDef fulfillmentNode fill:#7c3aed,stroke:#ddd6fe,stroke-width:2px,color:#f5f3ff;
+    classDef paymentNode fill:#db2777,stroke:#fbcfe8,stroke-width:2px,color:#fdf2f8;
+    classDef streamNode fill:#4f46e5,stroke:#c7d2fe,stroke-width:2px,color:#eef2ff;
+    classDef externalNode fill:#0d9488,stroke:#99f6e4,stroke-width:2px,color:#f0fdfa;
+    classDef dataNode fill:#334155,stroke:#cbd5e1,stroke-width:1.5px,color:#f8fafc;
 
     class client clientNode;
-    class user,userdb identityNode;
-    class event,eventdb catalogNode;
-    class seats,seatsdb inventoryNode;
-    class booking,bookingdb fulfillmentNode;
-    class payment,paymentdb paymentNode;
+    class entry entryNode;
+    class user identityNode;
+    class event catalogNode;
+    class seats inventoryNode;
+    class booking fulfillmentNode;
+    class payment paymentNode;
     class kafka streamNode;
     class provider externalNode;
+    class userdb,eventdb,seatsdb,bookingdb,paymentdb dataNode;
 ```
 
 ## Service Map
