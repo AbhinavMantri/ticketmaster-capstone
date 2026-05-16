@@ -10,7 +10,7 @@ It is intentionally split into independently deployable services so the architec
 
 ```mermaid
 %%{init: {"theme":"base","themeVariables":{"background":"#ffffff","primaryTextColor":"#111827","lineColor":"#4b5563","fontFamily":"Inter, ui-sans-serif, system-ui"}}}%%
-flowchart LR
+flowchart TB
     client["Client / API Consumer"]
     entry["Service API Layer<br/>public + internal endpoints"]
 
@@ -29,26 +29,28 @@ flowchart LR
     provider["Payment Provider<br/>Razorpay-compatible"]
 
     client --> entry
+
     entry --> user
+    user --> userdb
+
     entry --> event
-    entry --> seats
-    entry --> booking
-    entry --> payment
-
+    event --> eventdb
     event -- "inventory initialization" --> kafka
-    kafka --> seats
 
+    kafka --> seats
+    entry --> seats
+    seats --> seatsdb
+
+    entry --> booking
+    booking --> bookingdb
     booking -. "lock / confirm / release integration" .-> seats
+
+    entry --> payment
+    payment --> paymentdb
     booking -. "checkout / payment integration" .-> payment
     payment -- "provider order / verification" --> provider
     provider -- "webhook" --> payment
     payment -. "payment outcome integration" .-> booking
-
-    user --> userdb
-    event --> eventdb
-    seats --> seatsdb
-    booking --> bookingdb
-    payment --> paymentdb
 
     classDef clientNode fill:#ffedd5,stroke:#f97316,stroke-width:2px,color:#111827;
     classDef entryNode fill:#fce7f3,stroke:#ec4899,stroke-width:2px,color:#111827;
