@@ -46,6 +46,24 @@ flowchart LR
     seats --> seatsdb
     booking --> bookingdb
     payment --> paymentdb
+
+    classDef clientNode fill:#fff7ed,stroke:#f97316,stroke-width:2px,color:#7c2d12;
+    classDef identityNode fill:#eff6ff,stroke:#2563eb,stroke-width:2px,color:#1e3a8a;
+    classDef catalogNode fill:#ecfdf5,stroke:#059669,stroke-width:2px,color:#064e3b;
+    classDef inventoryNode fill:#fefce8,stroke:#ca8a04,stroke-width:2px,color:#713f12;
+    classDef fulfillmentNode fill:#f5f3ff,stroke:#7c3aed,stroke-width:2px,color:#4c1d95;
+    classDef paymentNode fill:#fdf2f8,stroke:#db2777,stroke-width:2px,color:#831843;
+    classDef streamNode fill:#eef2ff,stroke:#4f46e5,stroke-width:2px,color:#312e81;
+    classDef externalNode fill:#f0fdfa,stroke:#0d9488,stroke-width:2px,color:#134e4a;
+
+    class client clientNode;
+    class user,userdb identityNode;
+    class event,eventdb catalogNode;
+    class seats,seatsdb inventoryNode;
+    class booking,bookingdb fulfillmentNode;
+    class payment,paymentdb paymentNode;
+    class kafka streamNode;
+    class provider externalNode;
 ```
 
 ## Service Map
