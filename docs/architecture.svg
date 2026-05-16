@@ -1,9 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="980" height="1500" viewBox="0 0 980 1500" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="760" viewBox="0 0 1120 760" role="img" aria-labelledby="title desc">
   <title id="title">Ticketmaster-style backend platform architecture</title>
-  <desc id="desc">A vertical architecture diagram showing client, service API layer, identity, event management, Kafka, seat allocation, booking, payment, provider, and operational guardrails.</desc>
+  <desc id="desc">Architecture map showing API layer, bounded microservices, Kafka eventing, external payment provider, service-owned persistence, and operational guardrails.</desc>
   <defs>
     <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#0f172a" flood-opacity="0.13"/>
+      <feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#0f172a" flood-opacity="0.12"/>
     </filter>
     <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
       <path d="M2,2 L10,6 L2,10 Z" fill="#475569"/>
@@ -13,126 +13,107 @@
     </marker>
   </defs>
 
-  <rect width="980" height="1500" fill="#f8fafc"/>
-  <rect x="0" y="0" width="980" height="150" fill="#0f172a"/>
-  <text x="490" y="60" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="700" fill="#ffffff">Ticketmaster-Style Backend Platform</text>
-  <text x="490" y="104" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="18" fill="#cbd5e1">Microservices, seat consistency, payment lifecycle, Kafka events, and operational recovery paths</text>
-  <rect x="0" y="146" width="326" height="8" fill="#2563eb"/>
-  <rect x="326" y="146" width="327" height="8" fill="#f97316"/>
-  <rect x="653" y="146" width="327" height="8" fill="#10b981"/>
+  <rect width="1120" height="760" fill="#f8fafc"/>
+  <rect x="0" y="0" width="1120" height="105" fill="#0f172a"/>
+  <text x="560" y="45" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="700" fill="#ffffff">Ticketmaster-Style Backend Platform</text>
+  <text x="560" y="75" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="16" fill="#cbd5e1">Architecture map: service boundaries, consistency points, eventing, payment integration, and operational ownership</text>
+  <rect x="0" y="101" width="374" height="6" fill="#2563eb"/>
+  <rect x="374" y="101" width="373" height="6" fill="#f97316"/>
+  <rect x="747" y="101" width="373" height="6" fill="#10b981"/>
 
-  <text x="88" y="216" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="700" fill="#2563eb">Request Path</text>
-  <text x="650" y="216" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="700" fill="#059669">Operational Concerns</text>
+  <g font-family="Inter, Arial, sans-serif">
+    <rect x="52" y="135" width="1016" height="405" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+    <text x="80" y="170" font-size="18" font-weight="700" fill="#334155">Core Platform Services</text>
+    <text x="80" y="194" font-size="13" fill="#64748b">Each service owns its domain model, APIs, database schema, tests, Dockerfile, and deployment contract.</text>
 
-  <g id="main-flow" font-family="Inter, Arial, sans-serif">
     <g filter="url(#shadow)">
-      <rect x="180" y="250" width="420" height="72" rx="8" fill="#ffedd5" stroke="#f97316" stroke-width="2"/>
-      <text x="390" y="281" text-anchor="middle" font-size="21" font-weight="700" fill="#0f172a">Client / API Consumer</text>
-      <text x="390" y="306" text-anchor="middle" font-size="15" fill="#475569">web or mobile booking journey</text>
+      <rect x="420" y="160" width="280" height="70" rx="8" fill="#fce7f3" stroke="#db2777" stroke-width="2"/>
+      <text x="560" y="191" text-anchor="middle" font-size="20" font-weight="700" fill="#0f172a">Service API Layer</text>
+      <text x="560" y="214" text-anchor="middle" font-size="13" fill="#475569">public APIs + internal service contracts</text>
     </g>
 
-    <line x1="390" y1="322" x2="390" y2="365" stroke="#475569" stroke-width="3" marker-end="url(#arrow)"/>
-
     <g filter="url(#shadow)">
-      <rect x="180" y="365" width="420" height="82" rx="8" fill="#fce7f3" stroke="#db2777" stroke-width="2"/>
-      <text x="390" y="399" text-anchor="middle" font-size="21" font-weight="700" fill="#0f172a">Service API Layer</text>
-      <text x="390" y="424" text-anchor="middle" font-size="15" fill="#475569">public APIs + internal service contracts</text>
+      <rect x="90" y="270" width="205" height="92" rx="8" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+      <text x="192" y="302" text-anchor="middle" font-size="18" font-weight="700" fill="#0f172a">user-service</text>
+      <text x="192" y="326" text-anchor="middle" font-size="13" fill="#475569">identity, roles</text>
+      <text x="192" y="346" text-anchor="middle" font-size="13" fill="#475569">JWT auth context</text>
     </g>
 
-    <line x1="390" y1="447" x2="390" y2="490" stroke="#475569" stroke-width="3" marker-end="url(#arrow)"/>
-
     <g filter="url(#shadow)">
-      <rect x="180" y="490" width="420" height="82" rx="8" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
-      <text x="390" y="524" text-anchor="middle" font-size="21" font-weight="700" fill="#0f172a">user-service</text>
-      <text x="390" y="549" text-anchor="middle" font-size="15" fill="#475569">identity, roles, JWT auth context</text>
+      <rect x="335" y="270" width="205" height="92" rx="8" fill="#d1fae5" stroke="#059669" stroke-width="2"/>
+      <text x="438" y="302" text-anchor="middle" font-size="18" font-weight="700" fill="#0f172a">event-management</text>
+      <text x="438" y="326" text-anchor="middle" font-size="13" fill="#475569">venues, events</text>
+      <text x="438" y="346" text-anchor="middle" font-size="13" fill="#475569">pricing, inventory init</text>
     </g>
 
-    <line x1="390" y1="572" x2="390" y2="615" stroke="#475569" stroke-width="3" marker-end="url(#arrow)"/>
-
     <g filter="url(#shadow)">
-      <rect x="180" y="615" width="420" height="82" rx="8" fill="#d1fae5" stroke="#059669" stroke-width="2"/>
-      <text x="390" y="649" text-anchor="middle" font-size="21" font-weight="700" fill="#0f172a">event-management-service</text>
-      <text x="390" y="674" text-anchor="middle" font-size="15" fill="#475569">venues, events, pricing, inventory init</text>
+      <rect x="580" y="270" width="205" height="92" rx="8" fill="#fef3c7" stroke="#ca8a04" stroke-width="2"/>
+      <text x="682" y="302" text-anchor="middle" font-size="18" font-weight="700" fill="#0f172a">seats-allocation</text>
+      <text x="682" y="326" text-anchor="middle" font-size="13" fill="#475569">availability, lock</text>
+      <text x="682" y="346" text-anchor="middle" font-size="13" fill="#475569">confirm, release</text>
     </g>
 
-    <line x1="390" y1="697" x2="390" y2="740" stroke="#475569" stroke-width="3" marker-end="url(#arrow)"/>
-
     <g filter="url(#shadow)">
-      <path d="M230 740 L550 740 L550 815 Q390 850 230 815 Z" fill="#e0e7ff" stroke="#4f46e5" stroke-width="2"/>
-      <text x="390" y="779" text-anchor="middle" font-size="21" font-weight="700" fill="#0f172a">Kafka</text>
-      <text x="390" y="805" text-anchor="middle" font-size="15" fill="#475569">inventory initialization events</text>
+      <rect x="825" y="270" width="205" height="92" rx="8" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/>
+      <text x="928" y="302" text-anchor="middle" font-size="18" font-weight="700" fill="#0f172a">booking-service</text>
+      <text x="928" y="326" text-anchor="middle" font-size="13" fill="#475569">booking finalization</text>
+      <text x="928" y="346" text-anchor="middle" font-size="13" fill="#475569">ticket issuance</text>
     </g>
 
-    <line x1="390" y1="835" x2="390" y2="880" stroke="#475569" stroke-width="3" marker-end="url(#arrow)"/>
-
     <g filter="url(#shadow)">
-      <rect x="180" y="880" width="420" height="82" rx="8" fill="#fef3c7" stroke="#ca8a04" stroke-width="2"/>
-      <text x="390" y="914" text-anchor="middle" font-size="21" font-weight="700" fill="#0f172a">seats-allocation-service</text>
-      <text x="390" y="939" text-anchor="middle" font-size="15" fill="#475569">availability, lock, confirm, release</text>
+      <rect x="825" y="410" width="205" height="92" rx="8" fill="#fce7f3" stroke="#db2777" stroke-width="2"/>
+      <text x="928" y="442" text-anchor="middle" font-size="18" font-weight="700" fill="#0f172a">payment-service</text>
+      <text x="928" y="466" text-anchor="middle" font-size="13" fill="#475569">provider order</text>
+      <text x="928" y="486" text-anchor="middle" font-size="13" fill="#475569">webhook, reconcile</text>
     </g>
 
-    <line x1="390" y1="962" x2="390" y2="1005" stroke="#475569" stroke-width="3" marker-end="url(#arrow)"/>
-
     <g filter="url(#shadow)">
-      <rect x="180" y="1005" width="420" height="82" rx="8" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/>
-      <text x="390" y="1039" text-anchor="middle" font-size="21" font-weight="700" fill="#0f172a">booking-service</text>
-      <text x="390" y="1064" text-anchor="middle" font-size="15" fill="#475569">booking finalization and ticket issuance</text>
+      <path d="M350 430 L525 430 L525 493 Q438 520 350 493 Z" fill="#e0e7ff" stroke="#4f46e5" stroke-width="2"/>
+      <text x="438" y="463" text-anchor="middle" font-size="18" font-weight="700" fill="#0f172a">Kafka</text>
+      <text x="438" y="486" text-anchor="middle" font-size="13" fill="#475569">inventory events</text>
     </g>
 
-    <line x1="390" y1="1087" x2="390" y2="1130" stroke="#475569" stroke-width="3" marker-end="url(#arrow)"/>
-
     <g filter="url(#shadow)">
-      <rect x="180" y="1130" width="420" height="82" rx="8" fill="#fce7f3" stroke="#db2777" stroke-width="2"/>
-      <text x="390" y="1164" text-anchor="middle" font-size="21" font-weight="700" fill="#0f172a">payment-service</text>
-      <text x="390" y="1189" text-anchor="middle" font-size="15" fill="#475569">provider order, webhook, reconciliation</text>
+      <rect x="860" y="595" width="205" height="74" rx="8" fill="#ccfbf1" stroke="#0d9488" stroke-width="2"/>
+      <text x="962" y="626" text-anchor="middle" font-size="18" font-weight="700" fill="#0f172a">Payment Provider</text>
+      <text x="962" y="649" text-anchor="middle" font-size="13" fill="#475569">Razorpay-compatible</text>
     </g>
 
-    <line x1="390" y1="1212" x2="390" y2="1255" stroke="#475569" stroke-width="3" marker-end="url(#arrow)"/>
+    <line x1="560" y1="230" x2="192" y2="270" stroke="#64748b" stroke-width="2.2" marker-end="url(#arrow)"/>
+    <line x1="560" y1="230" x2="438" y2="270" stroke="#64748b" stroke-width="2.2" marker-end="url(#arrow)"/>
+    <line x1="560" y1="230" x2="682" y2="270" stroke="#64748b" stroke-width="2.2" marker-end="url(#arrow)"/>
+    <line x1="560" y1="230" x2="928" y2="270" stroke="#64748b" stroke-width="2.2" marker-end="url(#arrow)"/>
 
-    <g filter="url(#shadow)">
-      <rect x="180" y="1255" width="420" height="76" rx="8" fill="#ccfbf1" stroke="#0d9488" stroke-width="2"/>
-      <text x="390" y="1288" text-anchor="middle" font-size="21" font-weight="700" fill="#0f172a">Payment Provider</text>
-      <text x="390" y="1313" text-anchor="middle" font-size="15" fill="#475569">Razorpay-compatible integration</text>
+    <path d="M438 362 C438 388 438 402 438 430" fill="none" stroke="#4f46e5" stroke-width="2.4" marker-end="url(#arrow)"/>
+    <path d="M525 462 C575 462 610 414 640 362" fill="none" stroke="#4f46e5" stroke-width="2.4" marker-end="url(#arrow)"/>
+    <path d="M785 316 L825 316" fill="none" stroke="#64748b" stroke-width="2.4" marker-end="url(#arrow)"/>
+    <path d="M928 362 L928 410" fill="none" stroke="#64748b" stroke-width="2.4" marker-end="url(#arrow)"/>
+    <path d="M1030 456 C1075 488 1075 560 1000 595" fill="none" stroke="#64748b" stroke-width="2.4" marker-end="url(#arrow)"/>
+    <path d="M860 632 C760 615 760 470 825 456" fill="none" stroke="#94a3b8" stroke-width="2.2" stroke-dasharray="8 8" marker-end="url(#arrowSoft)"/>
+    <text x="710" y="605" font-size="12" fill="#64748b">webhook / outcome callback</text>
+  </g>
+
+  <g font-family="Inter, Arial, sans-serif">
+    <rect x="52" y="565" width="760" height="128" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+    <text x="80" y="600" font-size="18" font-weight="700" fill="#334155">Platform Boundaries</text>
+
+    <g>
+      <rect x="82" y="620" width="200" height="44" rx="6" fill="#f8fafc" stroke="#94a3b8"/>
+      <text x="182" y="638" text-anchor="middle" font-size="13" font-weight="700" fill="#334155">Service-owned PostgreSQL</text>
+      <text x="182" y="656" text-anchor="middle" font-size="12" fill="#64748b">no shared database ownership</text>
+    </g>
+    <g>
+      <rect x="308" y="620" width="200" height="44" rx="6" fill="#f8fafc" stroke="#94a3b8"/>
+      <text x="408" y="638" text-anchor="middle" font-size="13" font-weight="700" fill="#334155">Idempotent Contracts</text>
+      <text x="408" y="656" text-anchor="middle" font-size="12" fill="#64748b">checkout, payment, booking</text>
+    </g>
+    <g>
+      <rect x="534" y="620" width="200" height="44" rx="6" fill="#f8fafc" stroke="#94a3b8"/>
+      <text x="634" y="638" text-anchor="middle" font-size="13" font-weight="700" fill="#334155">AWS Deployment Frame</text>
+      <text x="634" y="656" text-anchor="middle" font-size="12" fill="#64748b">CodeBuild, ECR, ECS notes</text>
     </g>
   </g>
 
-  <g id="side-notes" font-family="Inter, Arial, sans-serif">
-    <g filter="url(#shadow)">
-      <rect x="650" y="365" width="250" height="118" rx="8" fill="#ffffff" stroke="#bfdbfe" stroke-width="2"/>
-      <text x="675" y="400" font-size="18" font-weight="700" fill="#1d4ed8">Auth Boundary</text>
-      <text x="675" y="430" font-size="14" fill="#475569">JWT context flows into</text>
-      <text x="675" y="452" font-size="14" fill="#475569">protected downstream APIs.</text>
-    </g>
-
-    <g filter="url(#shadow)">
-      <rect x="650" y="575" width="250" height="130" rx="8" fill="#ffffff" stroke="#bbf7d0" stroke-width="2"/>
-      <text x="675" y="610" font-size="18" font-weight="700" fill="#047857">Async Inventory</text>
-      <text x="675" y="640" font-size="14" fill="#475569">Event setup and sale-time</text>
-      <text x="675" y="662" font-size="14" fill="#475569">seat availability are decoupled</text>
-      <text x="675" y="684" font-size="14" fill="#475569">through Kafka.</text>
-    </g>
-
-    <g filter="url(#shadow)">
-      <rect x="650" y="860" width="250" height="135" rx="8" fill="#ffffff" stroke="#fde68a" stroke-width="2"/>
-      <text x="675" y="895" font-size="18" font-weight="700" fill="#a16207">Consistency Point</text>
-      <text x="675" y="925" font-size="14" fill="#475569">Seats are locked before</text>
-      <text x="675" y="947" font-size="14" fill="#475569">payment to reduce double</text>
-      <text x="675" y="969" font-size="14" fill="#475569">booking risk.</text>
-    </g>
-
-    <g filter="url(#shadow)">
-      <rect x="650" y="1115" width="250" height="150" rx="8" fill="#ffffff" stroke="#fbcfe8" stroke-width="2"/>
-      <text x="675" y="1150" font-size="18" font-weight="700" fill="#be185d">Payment Recovery</text>
-      <text x="675" y="1180" font-size="14" fill="#475569">Webhooks, idempotency,</text>
-      <text x="675" y="1202" font-size="14" fill="#475569">duplicate detection, and</text>
-      <text x="675" y="1224" font-size="14" fill="#475569">reconciliation hooks.</text>
-    </g>
-  </g>
-
-  <path d="M610 1170 C735 1170 735 1050 610 1050" fill="none" stroke="#94a3b8" stroke-width="2.5" stroke-dasharray="8 8" marker-end="url(#arrowSoft)"/>
-  <text x="700" y="1090" font-family="Inter, Arial, sans-serif" font-size="14" fill="#64748b">payment outcome integration</text>
-
-  <rect x="70" y="1375" width="840" height="80" rx="8" fill="#0f172a"/>
-  <text x="490" y="1407" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="19" font-weight="700" fill="#ffffff">Design principle</text>
-  <text x="490" y="1438" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="17" fill="#cbd5e1">Keep transaction paths bounded, observable, idempotent, and recoverable.</text>
+  <rect x="52" y="715" width="1016" height="28" rx="6" fill="#0f172a"/>
+  <text x="560" y="734" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="700" fill="#ffffff">Design principle: keep transaction paths bounded, observable, idempotent, and recoverable.</text>
 </svg>
