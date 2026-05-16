@@ -8,52 +8,9 @@ It is intentionally split into independently deployable services so the architec
 
 ## Architecture Overview
 
-```mermaid
-%%{init: {"theme":"base","themeVariables":{"background":"#ffffff","primaryTextColor":"#111827","lineColor":"#4b5563","fontFamily":"Inter, ui-sans-serif, system-ui"}}}%%
-flowchart TB
-    client["Client / API Consumer"]
-    entry["Service API Layer<br/>public + internal endpoints"]
+![Ticketmaster-style backend platform architecture](docs/architecture.svg)
 
-    user["user-service<br/>Identity, JWT, roles"]
-    event["event-management-service<br/>Venues, events, pricing"]
-    seats["seats-allocation-service<br/>Inventory, locks, confirms"]
-    booking["booking-service<br/>Bookings, tickets, fulfillment"]
-    payment["payment-service<br/>Provider order, webhook, reconcile"]
-
-    kafka[("Kafka<br/>inventory events")]
-    provider["Payment Provider<br/>Razorpay-compatible"]
-
-    client --> entry
-    entry --> user
-    user -- "JWT auth context" --> event
-    event -- "inventory initialization" --> kafka
-    kafka --> seats
-    seats -- "seat lock / confirm" --> booking
-    booking -- "payment initiation" --> payment
-    payment -- "provider order / verification" --> provider
-    provider -- "webhook" --> payment
-    payment -. "payment outcome integration" .-> booking
-
-    classDef clientNode fill:#ffedd5,stroke:#f97316,stroke-width:2px,color:#111827;
-    classDef entryNode fill:#fce7f3,stroke:#ec4899,stroke-width:2px,color:#111827;
-    classDef identityNode fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#111827;
-    classDef catalogNode fill:#d1fae5,stroke:#059669,stroke-width:2px,color:#111827;
-    classDef inventoryNode fill:#fef3c7,stroke:#ca8a04,stroke-width:2px,color:#111827;
-    classDef fulfillmentNode fill:#ede9fe,stroke:#7c3aed,stroke-width:2px,color:#111827;
-    classDef paymentNode fill:#fce7f3,stroke:#db2777,stroke-width:2px,color:#111827;
-    classDef streamNode fill:#e0e7ff,stroke:#4f46e5,stroke-width:2px,color:#111827;
-    classDef externalNode fill:#ccfbf1,stroke:#0d9488,stroke-width:2px,color:#111827;
-
-    class client clientNode;
-    class entry entryNode;
-    class user identityNode;
-    class event catalogNode;
-    class seats inventoryNode;
-    class booking fulfillmentNode;
-    class payment paymentNode;
-    class kafka streamNode;
-    class provider externalNode;
-```
+Source file: [docs/architecture.drawio](docs/architecture.drawio)
 
 ## Service Map
 
