@@ -9,7 +9,7 @@ It is intentionally split into independently deployable services so the architec
 ## Architecture Overview
 
 ```mermaid
-%%{init: {"theme":"base","themeVariables":{"background":"#1f2937","primaryTextColor":"#f8fafc","lineColor":"#cbd5e1","fontFamily":"Inter, ui-sans-serif, system-ui"}}}%%
+%%{init: {"theme":"base","themeVariables":{"background":"#ffffff","primaryTextColor":"#111827","lineColor":"#4b5563","fontFamily":"Inter, ui-sans-serif, system-ui"}}}%%
 flowchart LR
     client["Client / API Consumer"]
     entry["Service API Layer<br/>public + internal endpoints"]
@@ -50,16 +50,16 @@ flowchart LR
     booking --> bookingdb
     payment --> paymentdb
 
-    classDef clientNode fill:#f97316,stroke:#fed7aa,stroke-width:2px,color:#fff7ed;
-    classDef entryNode fill:#ec4899,stroke:#fbcfe8,stroke-width:2px,color:#fff1f2;
-    classDef identityNode fill:#2563eb,stroke:#bfdbfe,stroke-width:2px,color:#eff6ff;
-    classDef catalogNode fill:#059669,stroke:#a7f3d0,stroke-width:2px,color:#ecfdf5;
-    classDef inventoryNode fill:#ca8a04,stroke:#fde68a,stroke-width:2px,color:#fefce8;
-    classDef fulfillmentNode fill:#7c3aed,stroke:#ddd6fe,stroke-width:2px,color:#f5f3ff;
-    classDef paymentNode fill:#db2777,stroke:#fbcfe8,stroke-width:2px,color:#fdf2f8;
-    classDef streamNode fill:#4f46e5,stroke:#c7d2fe,stroke-width:2px,color:#eef2ff;
-    classDef externalNode fill:#0d9488,stroke:#99f6e4,stroke-width:2px,color:#f0fdfa;
-    classDef dataNode fill:#334155,stroke:#cbd5e1,stroke-width:1.5px,color:#f8fafc;
+    classDef clientNode fill:#ffedd5,stroke:#f97316,stroke-width:2px,color:#111827;
+    classDef entryNode fill:#fce7f3,stroke:#ec4899,stroke-width:2px,color:#111827;
+    classDef identityNode fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#111827;
+    classDef catalogNode fill:#d1fae5,stroke:#059669,stroke-width:2px,color:#111827;
+    classDef inventoryNode fill:#fef3c7,stroke:#ca8a04,stroke-width:2px,color:#111827;
+    classDef fulfillmentNode fill:#ede9fe,stroke:#7c3aed,stroke-width:2px,color:#111827;
+    classDef paymentNode fill:#fce7f3,stroke:#db2777,stroke-width:2px,color:#111827;
+    classDef streamNode fill:#e0e7ff,stroke:#4f46e5,stroke-width:2px,color:#111827;
+    classDef externalNode fill:#ccfbf1,stroke:#0d9488,stroke-width:2px,color:#111827;
+    classDef dataNode fill:#f8fafc,stroke:#64748b,stroke-width:1.5px,color:#111827;
 
     class client clientNode;
     class entry entryNode;
